@@ -6,8 +6,8 @@ _ft_strcpy:
 			cld
 .loop:
 			cmp		byte [rsi], 0
-			movsb
 			je		.end
+			movsb
 			jmp		.loop
 
 .end:

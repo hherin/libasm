@@ -5,6 +5,7 @@ ASFLAG	=		-fmacho64
 RM		=		rm -rf
 SRC		=		./src/ft_strlen.asm\
 				./src/ft_strcpy.asm\
+				./src/ft_write.asm\
 				./src/ft_strcmp.asm
 OBJ		=		${SRC:.asm=.o}
 
