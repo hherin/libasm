@@ -8,6 +8,7 @@ SRC		=		./src/ft_strlen.asm\
 				./src/ft_write.asm\
 				./src/ft_read.asm\
 				./src/ft_strdup.asm\
+				./src/ft_atoi_base.asm\
 				./src/ft_strcmp.asm
 OBJ		=		${SRC:.asm=.o}
 
