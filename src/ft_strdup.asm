@@ -4,6 +4,7 @@
 				extern	_malloc
 				extern	_ft_strcpy
 				extern	_ft_strlen
+				extern	___error
 _ft_strdup:
 				xor		rax, rax
 				call	_ft_strlen
@@ -19,5 +20,6 @@ _ft_strdup:
 				ret
 
 .error:
-				mov		rax, 0
+				call	___error
+				mov		qword [rax], 12
 				ret

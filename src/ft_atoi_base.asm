@@ -1,150 +1,149 @@
-extern	_ft_strlen
-extern	_ft_write
 			section	.text
+			extern	_ft_strlen
 			global	_ft_atoi_base
-;SAVE R8 taille base
 
-
-_is_good_base:							; this function check if only numbers and letters in base
-			cmp		byte [rdi], 48
-			jl		.ret_error			; if less than number
-			cmp		byte [rdi], 122
-			jg		.ret_error			; if more than letter
-			cmp		byte [rdi], 57
-			jg		.check_between		; between number and letter
+_ft_checkbase:
+			xor		rax, rax
+			cmp		byte [rdi], 0		; end string character
+			je		.ret
+			cmp		byte [rdi], 33		; last space
+			jle		.err
+			cmp		byte [rdi], 45		; plus
+			je		.err
+			cmp		byte [rdi], 43		; minus
+			je		.err
+			jmp		.ret
+.err:
 			mov		rax, 1
 			ret
-.check_between:
-			cmp		byte [rdi], 65
-			jl		.ret_error			; if not a letter
-			mov		rax, 1
-			ret
-.ret_error:
+.ret:
 			mov		rax, 0
 			ret
 
-_double_base:								; this function check double et call _is_good_base
-			mov		r15, 0					; index for current char
-.loop_db:
- 			add		rdi, r15				; move pointer to check the curent position
-			cmp		byte [rdi], 0
-			je		.ret_db
-			call	_is_good_base
-			cmp		rax, 0
-			je		.err_db
-			sub		rdi, r15				; pointer back to keep initial position of rdi
-			mov		rcx, r15				; index for base
-			inc		rcx
-			mov		bl, byte [rdi + rcx]
-			cmp		byte [rdi + r15], bl	; is this char a double ?
-			je		.err_db					; return error if same charactere
-			inc		r15						; inc counter
-			cmp		rcx, r8
-			je		.end_loop				; if end of string base go to end_loop
-			jmp		.loop_db
+_ft_double_base:
+			xor		rdx, rdx				; i = 0
+			mov		rbx, rdx
+			inc		rbx						; j = 1
+.loop1:
+			cmp		byte [rdi + rdx], 0		; end of 1st while
+			je		.end_loop
+			cmp		byte [rdi + rbx], 0		; end of 2nd while
+			je		.loop2
+			mov		ch, byte [rdi + rdx]
+			mov		cl, byte [rdi + rbx]
+			cmp		ch, cl
+			je		.ret_z					; error
+			inc		rbx
+			jmp		.loop1
+.loop2:
+			inc		rdx
+			mov		rbx, rdx
+			inc		rbx
+			jmp		.loop1
 .end_loop:
-			inc		r15						; inc base counter
-			cmp		r15, r8					; compare to size of base
-			je		.ret_db					; if all base check go to there
-			jmp		.loop_db				; if not all base check
-.err_db:
+			mov		rax, 0
+			ret
+.ret_z:
 			mov		rax, 1
 			ret
-.ret_db:
+
+_ft_error_base:
+			mov		r8, rdi
+			cmp		rdi, 0
+			je		.error
+			call	_ft_strlen
+			cmp		rax, 2
+			jl		.error
+			call	_ft_double_base
+			cmp		rax, 1
+			je		.error
+.while:
+			cmp		byte [rdi], 0
+			je		.end_while
+			call	_ft_checkbase
+			cmp		rax, 1
+			je		.error
+			inc		rdi
+			jmp		.while
+.end_while:
+			mov		rdi, r8
 			mov		rax, 0
 			ret
+.error:
+			mov		rdi, r8
+			mov		rax, 1
+			ret
 
-_error_base:								; check error for base
-			mov		r9, rdi					; save arg1
-			mov		rdi, rsi
-			call	_ft_strlen
-			mov		r8, rax					; save size of base
-			cmp		r8, 1					; check size
-			jle		.ret_err				; check double in base --- if less go error
-			call	_double_base			;check if there is double in base
-			cmp		rax, 1
+_ft_inbase:
+			xor		rcx, rcx
+			xor		rbx, rbx
+.loop:
+			cmp		byte [rsi + rcx], 0
 			je		.ret_err
-			mov		rax, 0
+			mov		rbx, [rdi]
+			mov		bh, byte [rsi + rcx]
+			cmp		bh, bl
+			je		.ret
+			inc		rcx
+			jmp		.loop
+.ret:
+			mov		rax, rcx
 			ret
 .ret_err:
-			mov		rax, 1
-			ret
-
-_ft_isspace:
-			cmp		byte [rdi], 33
-			jg		.not_sp
-			cmp		byte [rdi], 0
-			je		.not_sp
-			mov		rax, 1
-			ret
-.not_sp:
-			mov		rax, 0
-			ret
-
-_is_inbase:
-			xor		rcx, rcx
 			mov		rax, -1
-.loop_inbase:
-			mov		bl, byte [rdi]
-			cmp		bl, [rsi + rcx]
-			je		.isbase
-			inc		rcx
-			cmp		r8, rcx
-			jne		.loop_inbase
-			ret
-.isbase:
-			mov		rax, rcx
 			ret
 
 _ft_atoi_base:
-			xor		rcx, rcx		; initialization of return value
-			mov		r10, rdi		; save string arg1
-			mov		rdi, rsi		; arg1 for error_base
-			call	_error_base		; check error of base
+			mov		r9, rdi
+			mov		rdi, rsi
+			call	_ft_error_base
 			cmp		rax, 1
-			je		.end_convert
-			mov		rdi, r10		; put arg1 back
-			cmp		byte [rdi], 0	; check if string is empty
-			jne		.loop_sp
-			mov		rax, 0
-			ret
-.loop_sp:							; move pointer if space
-			call	_ft_isspace
-			cmp		rax, 0
-			je		.loop_sign		; if not space check sign
-			inc		rdi
+			je		.error
+			call	_ft_strlen
+			mov		r11, rax				; size of base
+			mov		rsi, rdi
+			mov		rdi, r9
+			xor		r9, r9					; return value
+.space:
 			cmp		byte [rdi], 0
-			je		.end_convert
-			jmp		.loop_sp
-.loop_sign:
-			cmp		byte [rdi], 45	; if char is minus
-			je		.neg_sign
-			cmp		byte [rdi], 43	; if char is plus
-			je		.pos_sign
-			cmp		byte [rdi], 0	; if end
-			je		.end_convert
-			jmp		.convert		; if not sign and not end of string go to convert
-.neg_sign:
-			mov		rbx, -1
+			je		.ret
+			cmp		byte [rdi], 33
+			mov		rax, 1					; set the sign
+			jge		.sign
 			inc		rdi
-			jmp		.loop_sign
-.pos_sign:
-			mov		rbx, 1
+			jmp		.space
+.sign:
+			cmp		byte [rdi], 43
+			je		.positiv
+			cmp		byte [rdi], 45
+			je		.negativ
+			mov		r10, rax
+			jne		.convert
+.positiv:
+			imul	rax, 1
 			inc		rdi
-			jmp		.loop_sign
+			jmp		.sign
+.negativ:
+			imul	rax, -1
+			inc		rdi
+			jmp		.sign
 .convert:
-			cmp		byte [rdi], 0	; is end of string ?
-			je		.end_convert
-			call	_is_inbase		; is number in base ?
+			cmp		byte [rdi], 0
+			je		.ret
+			call	_ft_inbase
 			cmp		rax, -1
-			je		.end_convert
-			imul	rcx, r8			; nb * strlen(base)
-			add		rcx, rax		; nb + j  (str[i]=base[j])
+			je		.ret
+			mov		rcx, rax
+			mov		rax, r11
+			imul	rax, r9
+			add		rax, rcx
+			mov		r9, rax
 			inc		rdi
 			jmp		.convert
-.end_convert:
-			;mov		rcx, r12
-			;mul		r12, rbx
-			mov		rax, rcx
-			imul	rax, rbx
+.error:
+			mov		rax, 0
+			ret
+.ret:
+			mov		rax, r9
+			imul	rax, r10
 			ret
