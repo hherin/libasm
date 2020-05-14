@@ -18,7 +18,7 @@ _ft_list_sort:
 				mov		rbx, rdi
 				mov		rcx, rsi
 				mov		rdi, qword [rbx]
-				cmp		qword [rdi], 0
+				cmp		qword rdi, 0
 				je		.ret
 .loop:
 				cmp		qword [rdi + s_list.next], 0
