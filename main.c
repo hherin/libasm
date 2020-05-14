@@ -6,7 +6,7 @@
 /*   By: heleneherin <heleneherin@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/04/06 14:35:24 by heleneherin       #+#    #+#             */
-/*   Updated: 2020/04/29 09:41:48 by heleneherin      ###   ########.fr       */
+/*   Updated: 2020/05/14 14:19:42 by heleneherin      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,9 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <errno.h>
+#include <fcntl.h>
+
+
 extern size_t ft_strlen(char *s);
 extern char *ft_strcpy(char *dest, char *src);
 extern int ft_strcmp(char *s1, char *s2);
@@ -23,10 +26,35 @@ extern ssize_t ft_read(int fd, void *buf, size_t nbyte);
 extern char *ft_strdup(const char *s1);
 extern int	ft_atoi_base(char *str, char *base);
 
+typedef struct s_list
+{
+	char *data;
+	struct s_list *next;
+} t_list;
+
+void print_list(t_list **begin_list)
+{
+	t_list *link;
+
+	link = *begin_list;
+	printf("[%s]", link->data);
+	while (link->next)
+	{
+		link = link->next;
+		printf(" -> [%s]", link->data);
+	}
+	printf("\n");
+}
+
+void ft_list_push_front(t_list **begin_list, void *data);
+int ft_list_size(t_list *begin_list);
+void ft_list_sort(t_list **begin_list, int (*cmp)());
+void	ft_swap(char **s1, char **s2);
+
 int main(void)
 {
-	char *s = "salut";
-	char *s2 = "biquette";
+	// char *s = "salut";
+	// char *s2 = "biquette";
 	// char *s3 = "";
 
 	// printf("---STRLEN---\n");
@@ -80,15 +108,26 @@ int main(void)
 	// printf("	HOME %zd - errno %d\n", ft_write(1, NULL, -1), errno);
 	// printf("	func %zd - errno %d\n", write(1, NULL, -1), errno);
 
-	printf("\n---READ---\n");
-	char buf[100];
-	char buf2[100];
-	printf("	HOME %zu\n", ft_read(1, buf, 3));
-	printf("outhome %s\n", buf);
-	printf("	func %zu\n", read(1, buf2, 3));
-	printf("outfunc %s\n", buf);
+	// printf("\n---READ---\n");
+	// char buf[100];
+	// int fd1 = open("./src/ft_strlen.asm", O_RDONLY);
+	// int nb = ft_read(-1, buf, 3);
+	// printf("\nret %d / %d\n", nb, *buf);
+	// printf("erno %d", errno);
+	// char buf2[100];
+	// buf[3] = '\0';
+	// buf2[3] = '\0';
+	// int fd1 = open("./src/ft_strlen.asm", O_RDONLY);
+	// printf("	HOME %zu\n%s\n", ft_read(fd1, buf, 3), buf);
+	// printf("	func %zu\n%s\n", read(fd1, buf2, 3), buf2);
+	// printf("	HOME %zu\n", ft_read(1, buf, 3));
+	// printf("outhome %s\n", buf);
+	// printf("	func %zu\n", read(1, buf2, 3));
+	// printf("outfunc %s\n", buf);
 
 	// printf("\n---STRDUP---\n");
+	// printf("avant %d / %s / %d\n", errno, malloc(-1), errno);
+	// printf("avant %d / %s / %d\n", errno, strdup(NULL), errno);
 	// printf("HOME %s\n", ft_strdup("salut"));
 	// printf("HOME %s\n", ft_strdup("salut ca va"));
 	// printf("HOME %s\n", ft_strdup(""));
@@ -98,6 +137,48 @@ int main(void)
 	// printf("Base 2 : %d\n", ft_atoi_base("1111011", "01"));
 	// printf("Base 16 : %d\n", ft_atoi_base("7B", "0123456789ABCDEF"));
 	// printf("EMPTY %d\n", ft_atoi_base("", "01"));
+
+	// printf("\n---LIST_PUSH_FRONT---\n");
+	// t_list *elem = malloc(sizeof(t_list));
+	// elem->data = ft_strdup("hello");
+	// elem->next = NULL;
+	// char *s = ft_strdup("cava");
+	// printf("AVANT %s ", elem->data);
+	// ft_list_push_front(&elem, s);
+	// printf("APRES %s\n", elem->data);
+	// elem = elem->next;
+	// printf("LAST %s\n", elem->data);
+
+	// printf("\n---LIST_SIZE---\n");
+	// t_list	*elem;
+	// elem = malloc(sizeof(t_list));
+	// elem = NULL;
+	// ft_list_push_front(&elem, "hey");
+	// ft_list_push_front(&elem, "comment");
+	// ft_list_push_front(&elem, "cava");
+	// printf("size 1 = %d\n", ft_list_size(elem));
+	// printf("felem %s\n", elem->data);
+	// ft_list_push_front(&elem, "yoyo");
+	// printf("size 1 = %d\n", ft_list_size(elem));
+
+	// printf("\n---LIST_SORT---\n");
+	// t_list *new = malloc(sizeof(t_list));
+	// new->data = strdup("5");
+	// new->next = malloc(sizeof(t_list));
+	// new->next->data = strdup("1");
+	// new->next->next = malloc(sizeof(t_list));
+	// new->next->next->data = strdup("3");
+	// new->next->next->next = malloc(sizeof(t_list));
+	// new->next->next->next->data = strdup("2");
+	// new->next->next->next->next = malloc(sizeof(t_list));
+	// new->next->next->next->next->data = strdup("4");
+	// new->next->next->next->next->next = NULL;
+	// print_list(&new);
+	// ft_list_sort(&new, &ft_strcmp);
+	// print_list(&new);
+	// t_list *nul = NULL;
+	// ft_list_sort(&nul, &ft_strcmp);
+
 
 	return (0);
 }
