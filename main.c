@@ -50,11 +50,11 @@ void ft_list_push_front(t_list **begin_list, void *data);
 int ft_list_size(t_list *begin_list);
 void ft_list_sort(t_list **begin_list, int (*cmp)());
 void	ft_swap(char **s1, char **s2);
-void ft_list_remove_if(t_list **begin_list, void *data_ref, int (*cmp)(), void (*free_fct)(void *);
+void ft_list_remove_if(t_list **begin_list, void *data_ref, int (*cmp)(), void (*free_fct)(void *));
 
 int main(void)
 {
-	// char *s = "salut";
+	 char *s = "salut";
 	// char *s2 = "biquette";
 	// char *s3 = "";
 
@@ -88,16 +88,16 @@ int main(void)
 	// printf("func %d\n", strcmp(s2, s));
 
 	// printf("\n---WRITE---\n");
-	// printf("	HOME %zu\n", ft_write(1, s, 2));
-	// printf("	func %zu\n", write(1, s, 2));
+	//printf("	HOME %zu\n", ft_write(1, s, 2));
+	 //printf("	func %zu\n", write(1, s, 2));
 
 	// printf("	HOME %zu\n", ft_write(1, s, 3));
-	// printf("	func %zu\n", write(1, s, 3));
+	//printf("	func %zu\n", write(1, s, 3));
 
 	// printf("	HOME %zu\n", ft_write(1, s, 0));
 	// printf("	func %zu\n", write(1, s, 0));
 
-	// printf("	HOME %zd - errno %d\n", ft_write(-1, s, 3), errno);
+	 //printf("	HOME %zd - errno %d\n", ft_write(-1, s, 3), errno);
 	// printf("	func %zd - errno %d\n", write(-1, s, 3), errno);
 
 	// printf("	HOME %zd - errno %d\n", ft_write(1, NULL, 5), errno);
@@ -111,20 +111,20 @@ int main(void)
 
 	// printf("\n---READ---\n");
 	// char buf[100];
+	// char buf2[100];
 	// int fd1 = open("./src/ft_strlen.asm", O_RDONLY);
 	// int nb = ft_read(-1, buf, 3);
-	// printf("\nret %d / %d\n", nb, *buf);
-	// printf("erno %d", errno);
-	// char buf2[100];
-	// buf[3] = '\0';
-	// buf2[3] = '\0';
-	// int fd1 = open("./src/ft_strlen.asm", O_RDONLY);
-	// printf("	HOME %zu\n%s\n", ft_read(fd1, buf, 3), buf);
-	// printf("	func %zu\n%s\n", read(fd1, buf2, 3), buf2);
-	// printf("	HOME %zu\n", ft_read(1, buf, 3));
-	// printf("outhome %s\n", buf);
-	// printf("	func %zu\n", read(1, buf2, 3));
-	// printf("outfunc %s\n", buf);
+	// printf("HOME : ret %zd / %s | erno %d\n", ft_read(-1, buf, 3), buf, errno);
+	//  printf("FUNC : ret %zd / %s | erno %d\n", read(-1, buf2, 3), buf2, errno);
+	// char buf3[3] = "\0";
+	// char buf4[3] = "\0";
+	 //int fd1 = open("./src/ft_strlen.asm", O_RDONLY);
+	// printf("	HOME %zu\n%s\n", ft_read(fd1, buf3, 3), buf3);
+	// printf("	func %zu\n%s\n", read(fd1, buf3, 3), buf3);
+	// printf("	HOME %zu\n", ft_read(1, buf3, 3));
+	// printf("outhome %s\n", buf3);
+	// printf("	func %zu\n", read(1, buf4, 3));
+	// printf("outfunc %s\n", buf4);
 
 	// printf("\n---STRDUP---\n");
 	// printf("avant %d / %s / %d\n", errno, malloc(-1), errno);

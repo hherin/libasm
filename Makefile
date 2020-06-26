@@ -1,12 +1,12 @@
 NAME	=		libasm.a
-CC		=		gcc
+CC		=		clang
 ASM		=		nasm
-ASFLAG	=		-fmacho64
+ASFLAG	=		-felf64
 RM		=		rm -rf
-SRC		=		./src/ft_strlen.asm\
+SRC		=		./src/ft_strlen.s\
 				./src/ft_strcpy.asm\
-				./src/ft_write.asm\
-				./src/ft_read.asm\
+				./src/ft_write.s\
+				./src/ft_read.s\
 				./src/ft_strdup.asm\
 				./src/ft_atoi_base.asm\
 				./src/ft_strcmp.asm\
