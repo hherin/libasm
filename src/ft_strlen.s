@@ -1,7 +1,7 @@
 			section	.text
 			global	ft_strlen
 ft_strlen:
-			xor		rcx, rcx
+			mov		rcx, 0
 			cmp		rdi, 0
 			je		.end
 .loop:

@@ -1,6 +1,6 @@
 			section	.text
-			global	_ft_strcmp
-_ft_strcmp:
+			global	ft_strcmp
+ft_strcmp:
 			xor		rdx, rdx
 
 .loop:

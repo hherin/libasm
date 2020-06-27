@@ -1,7 +1,6 @@
-
 			section	.text
-			global	_ft_strcpy
-_ft_strcpy:
+			global	ft_strcpy
+ft_strcpy:
 			mov		r9, rdi
 			cld
 .loop:

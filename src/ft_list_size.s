@@ -5,9 +5,9 @@ struc s_list
 endstruc
 
 section .text
-global	_ft_list_size
+global	ft_list_size
 
-_ft_list_size:
+ft_list_size:
 			xor		rax, rax
 .loop:
 			cmp		rdi, 0

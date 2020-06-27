@@ -1,8 +1,8 @@
 			section	.text
-			extern	_ft_strlen
-			global	_ft_atoi_base
+			extern	ft_strlen
+			global	ft_atoi_base
 
-_ft_checkbase:
+ft_checkbase:
 			xor		rax, rax
 			cmp		byte [rdi], 0		; end string character
 			je		.ret
@@ -20,7 +20,7 @@ _ft_checkbase:
 			mov		rax, 0
 			ret
 
-_ft_double_base:
+ft_double_base:
 			xor		rdx, rdx				; i = 0
 			mov		rbx, rdx
 			inc		rbx						; j = 1
@@ -47,20 +47,20 @@ _ft_double_base:
 			mov		rax, 1
 			ret
 
-_ft_error_base:
+ft_error_base:
 			mov		r8, rdi
 			cmp		rdi, 0
 			je		.error
-			call	_ft_strlen
+			call	ft_strlen
 			cmp		rax, 2
 			jl		.error
-			call	_ft_double_base
+			call	ft_double_base
 			cmp		rax, 1
 			je		.error
 .while:
 			cmp		byte [rdi], 0
 			je		.end_while
-			call	_ft_checkbase
+			call	ft_checkbase
 			cmp		rax, 1
 			je		.error
 			inc		rdi
@@ -74,7 +74,7 @@ _ft_error_base:
 			mov		rax, 1
 			ret
 
-_ft_inbase:
+ft_inbase:
 			xor		rcx, rcx
 			xor		rbx, rbx
 .loop:
@@ -93,13 +93,13 @@ _ft_inbase:
 			mov		rax, -1
 			ret
 
-_ft_atoi_base:
+ft_atoi_base:
 			mov		r9, rdi
 			mov		rdi, rsi
-			call	_ft_error_base
+			call	ft_error_base
 			cmp		rax, 1
 			je		.error
-			call	_ft_strlen
+			call	ft_strlen
 			mov		r11, rax				; size of base
 			mov		rsi, rdi
 			mov		rdi, r9
@@ -130,7 +130,7 @@ _ft_atoi_base:
 .convert:
 			cmp		byte [rdi], 0
 			je		.ret
-			call	_ft_inbase
+			call	ft_inbase
 			cmp		rax, -1
 			je		.ret
 			mov		rcx, rax

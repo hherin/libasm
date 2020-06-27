@@ -5,16 +5,16 @@ struc s_list
 endstruc
 
 section .text
-global	_ft_list_sort
+global	ft_list_sort
 
-_ft_swap:
+ft_swap:
 				mov		r9, [rdi]
 				mov		r10, [rsi]
 				mov		[rdi], r10
 				mov		[rsi], r9
 				ret
 
-_ft_list_sort:
+ft_list_sort:
 				mov		rbx, rdi
 				mov		rcx, rsi
 				mov		rdi, qword [rbx]
@@ -33,7 +33,7 @@ _ft_list_sort:
 				mov		rdi, qword [r9 + s_list.next]
 				jmp		.loop
 .if:
-				call	_ft_swap
+				call	ft_swap
 				mov		rdi, qword [rbx]
 				jmp		.loop
 .ret:

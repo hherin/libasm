@@ -50,11 +50,10 @@ void ft_list_push_front(t_list **begin_list, void *data);
 int ft_list_size(t_list *begin_list);
 void ft_list_sort(t_list **begin_list, int (*cmp)());
 void	ft_swap(char **s1, char **s2);
-void ft_list_remove_if(t_list **begin_list, void *data_ref, int (*cmp)(), void (*free_fct)(void *));
 
 int main(void)
 {
-	 char *s = "salut";
+	// char *s = "salut";
 	// char *s2 = "biquette";
 	// char *s3 = "";
 
@@ -127,10 +126,18 @@ int main(void)
 	// printf("outfunc %s\n", buf4);
 
 	// printf("\n---STRDUP---\n");
-	// printf("avant %d / %s / %d\n", errno, malloc(-1), errno);
-	// printf("avant %d / %s / %d\n", errno, strdup(NULL), errno);
-	// printf("HOME %s\n", ft_strdup("salut"));
-	// printf("HOME %s\n", ft_strdup("salut ca va"));
+	// char *test1;
+	// char *test2;
+	 //char *dup = NULL;
+	 //printf("avant %d / %s / %d\n", errno, ft_strdup(dup), errno);
+	 //printf("avant %d / %s / %d\n", errno, strdup(dup), errno);
+	 //printf("HOME %s %p\n", test1 = ft_strdup("salut"), &test1);
+	// printf("func %s %p\n", test2 = strdup("salut"), &test2);
+	 //printf("1 ");
+	 //free(test1);
+	// printf("2\n");
+	// free(test2);
+	 //printf("HOME %s\n", ft_strdup("salut ca va"));
 	// printf("HOME %s\n", ft_strdup(""));
 
 	// printf("\n---ATOI_BASE---\n");
@@ -139,28 +146,27 @@ int main(void)
 	// printf("Base 16 : %d\n", ft_atoi_base("7B", "0123456789ABCDEF"));
 	// printf("EMPTY %d\n", ft_atoi_base("", "01"));
 
-	// printf("\n---LIST_PUSH_FRONT---\n");
+	 //printf("\n---LIST_PUSH_FRONT---\n");
 	// t_list *elem = malloc(sizeof(t_list));
 	// elem->data = ft_strdup("hello");
 	// elem->next = NULL;
-	// char *s = ft_strdup("cava");
-	// printf("AVANT %s ", elem->data);
-	// ft_list_push_front(&elem, s);
-	// printf("APRES %s\n", elem->data);
-	// elem = elem->next;
-	// printf("LAST %s\n", elem->data);
+	 //print_list(&elem);
+	// ft_list_push_front(&elem, "hello");
+	// print_list(&elem);
+	// ft_list_push_front(&elem, "bien");
+	// print_list(&elem);
 
 	// printf("\n---LIST_SIZE---\n");
 	// t_list	*elem;
 	// elem = malloc(sizeof(t_list));
 	// elem = NULL;
-	// ft_list_push_front(&elem, "hey");
-	// ft_list_push_front(&elem, "comment");
-	// ft_list_push_front(&elem, "cava");
+	 //ft_list_push_front(&elem, "hey");
+	 //ft_list_push_front(&elem, "comment");
+	 //ft_list_push_front(&elem, "cava");
 	// printf("size 1 = %d\n", ft_list_size(elem));
-	// printf("felem %s\n", elem->data);
 	// ft_list_push_front(&elem, "yoyo");
-	// printf("size 1 = %d\n", ft_list_size(elem));
+	// ft_list_push_front(&elem, "yoyo");
+	// printf("size 2 = %d\n", ft_list_size(elem));
 
 	// printf("\n---LIST_SORT---\n");
 	// t_list *new = malloc(sizeof(t_list));

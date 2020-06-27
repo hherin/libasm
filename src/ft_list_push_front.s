@@ -1,5 +1,5 @@
-extern	_malloc
-extern	___error
+extern	malloc
+extern	__errno_location
 
 section	.data
 struc s_list
@@ -8,23 +8,24 @@ struc s_list
 endstruc
 
 section .text
-global _ft_list_push_front
+global ft_list_push_front
 
-_ft_list_push_front:
-			mov		r9, [rdi]
+ft_list_push_front:
 			push	rdi
 			push	rsi
 			mov		rdi, s_list_size
-			call	_malloc
+			call	malloc
 			cmp		rax, 0
 			je		.err
 			pop		rsi
 			pop		rdi
+			mov		r9, [rdi]
 			mov		qword [rax + s_list.data], rsi
 			mov		qword [rax + s_list.next], r9
 			mov		[rdi], rax
 			ret
 .err:
-			call	___error
+			call	__errno_location
 			mov		qword [rax], 12
+			mov		rax, 0
 			ret
